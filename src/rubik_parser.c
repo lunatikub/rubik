@@ -17,8 +17,13 @@ struct rubik_pair {
  */
 static const struct rubik_pair allowed[] = {
   { 'U', MV_U },
+  { 'D', MV_D },
 };
 
+/**
+ * Return a basic move from the associated character.
+ * Assert if not found.
+ */
 static inline enum rubik_basic_move rubik_get_basic_move(char m)
 {
   for (uint32_t i = 0; i < sizeof(allowed) / sizeof(struct rubik_pair); ++i) {
@@ -55,6 +60,7 @@ static void rubik_dump_move(struct rubik_move *move)
 {
   switch (move->basic) {
     case MV_U: printf("U"); break;
+    case MV_D: printf("D"); break;
   }
   if (move->uturn) {
     printf("2");

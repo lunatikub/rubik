@@ -8,12 +8,19 @@ set(CMAKE_C_FLAGS "\
 
 include_directories(
   src
+  src/move
 )
 
 file(
   GLOB_RECURSE
   source_files
-  src/*
+  src/rubik.c
+  src/rubik_parser.c
+  src/rubik_x.c
+  src/move/rubik_move.c
+  src/move/rubik_move_u.c
+  src/move/rubik_move_d.c
+  cube/cube.c
 )
 
 add_executable(

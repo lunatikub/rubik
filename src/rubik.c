@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 
 #include "rubik.h"
@@ -55,4 +56,55 @@ void rubik_reset(struct rubik *cube)
   rubik_fill_face(cube, DOWN, WHITE);
   rubik_fill_face(cube, RIGHT, RED);
   rubik_fill_face(cube, BACK, GREEN);
+}
+
+bool rubik_eq(struct rubik *c1, struct rubik *c2)
+{
+  uint32_t f = 0;
+  uint32_t x = 0;
+  uint32_t y = 0;
+
+  for (f = FRONT; f < NR_FACE; ++f) {
+    for (x = 0; x < RUBIK_SZ; ++x) {
+      for (y = 0; y < RUBIK_SZ; ++y) {
+        if (c1->faces[f][x][y] != c2->faces[f][x][y]) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+void rubik_dump(struct rubik *cube)
+{
+  uint32_t f = 0;
+  uint32_t x = 0;
+  uint32_t y = 0;
+
+  for (f = FRONT; f < NR_FACE; ++f) {
+    for (y = 0; y < RUBIK_SZ; ++y) {
+      for (x = 0; x < RUBIK_SZ; ++x) {
+        printf("%u ", cube->faces[f][x][y]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+}
+
+void rubik_cp(struct rubik *src, struct rubik *dst)
+{
+  uint32_t f = 0;
+  uint32_t x = 0;
+  uint32_t y = 0;
+
+  for (f = FRONT; f < NR_FACE; ++f) {
+    for (y = 0; y < RUBIK_SZ; ++y) {
+      for (x = 0; x < RUBIK_SZ; ++x) {
+        dst->faces[f][x][y] = src->faces[f][x][y];
+      }
+    }
+  }
 }
